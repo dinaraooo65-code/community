@@ -188,7 +188,7 @@
   let connections = buildConnectionsStable(peopleStars.length);
 
   // =========================================================
-  // 3) ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ (как было)
+  // 3) ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ — оптимизировано (rAF)
   // =========================================================
   let panX = 0;
   let panY = 0;
@@ -215,46 +215,36 @@
     requestDrawLines();
   }
 
- // ===== ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ — ОПТИМИЗИРОВАНО (через rAF) =====
-let wheelAccX = 0;
-let wheelAccY = 0;
-let wheelRaf = 0;
+  let wheelAccX = 0;
+  let wheelAccY = 0;
+  let wheelRaf = 0;
 
-function applyWheelPan() {
-  wheelRaf = 0;
+  function applyWheelPan() {
+    wheelRaf = 0;
+    const speed = 1.1;
 
-  const speed = 1.1;
+    panX -= wheelAccX * speed;
+    panY -= wheelAccY * speed;
 
-  // применяем накопленное один раз за кадр
-  panX -= wheelAccX * speed;
-  panY -= wheelAccY * speed;
+    wheelAccX = 0;
+    wheelAccY = 0;
 
-  wheelAccX = 0;
-  wheelAccY = 0;
-
-  clampPan();
-  applyPan();
-}
-
-space.addEventListener('wheel', (e) => {
-  // CTRL+колесо — зум браузера, его не ломаем
-  if (e.ctrlKey) return;
-
-  e.preventDefault();
-
-  // на тачпаде дельты могут быть очень частыми/мелкими:
-  // копим и применяем один раз в requestAnimationFrame
-  wheelAccX += (e.deltaX || 0);
-  wheelAccY += (e.deltaY || 0);
-
-  // защита от "скачков" (редко, но бывает)
-  wheelAccX = Math.max(-180, Math.min(180, wheelAccX));
-  wheelAccY = Math.max(-180, Math.min(180, wheelAccY));
-
-  if (!wheelRaf) {
-    wheelRaf = requestAnimationFrame(applyWheelPan);
+    clampPan();
+    applyPan();
   }
-}, { passive: false });
+
+  space.addEventListener('wheel', (e) => {
+    if (e.ctrlKey) return;
+    e.preventDefault();
+
+    wheelAccX += (e.deltaX || 0);
+    wheelAccY += (e.deltaY || 0);
+
+    wheelAccX = Math.max(-180, Math.min(180, wheelAccX));
+    wheelAccY = Math.max(-180, Math.min(180, wheelAccY));
+
+    if (!wheelRaf) wheelRaf = requestAnimationFrame(applyWheelPan);
+  }, { passive:false });
 
   // =========================================================
   // 4) ПОЗИЦИИ (как было)
@@ -344,7 +334,7 @@ space.addEventListener('wheel', (e) => {
   }
 
   // =========================================================
-  // 7) ФОН + ПАДАЮЩИЕ (ОПТИМИЗАЦИЯ + МЕНЬШЕ ПАРАЛЛАКС)
+  // 7) ФОН + ПАДАЮЩИЕ (плотнее фон, но безопасно)
   // =========================================================
   let mouseX = 0, mouseY = 0;
   let pX = 0, pY = 0;
@@ -357,23 +347,18 @@ space.addEventListener('wheel', (e) => {
   });
   window.addEventListener('mouseleave', () => { mouseX = 0; mouseY = 0; });
 
-  // ---- КАЧЕСТВО
-  // maxDpr оставила как было (1.35), чтобы фон "не изменился" заметно.
-  // Урезала в основном near-слой (он тяжелее) + чуть far, чтобы легче стало, но вид почти тот же.
+  // Вариант 2: плотнее far, near — чуть-чуть (чтобы не убить FPS)
   const QUALITY = {
     maxDpr: 1.35,
 
-    // немного меньше звезд, вид почти тот же
-    farMax: 12000,
-    farMin: 4800,
-    nearMax: 2600,
-    nearMin: 900,
+    farMax: 18000,
+    farMin: 7600,
+    farDiv: 380,
 
-    // больше делитель = меньше звезд
-    farDiv: 600,
-    nearDiv: 3000,
+    nearMax: 3000,
+    nearMin: 1100,
+    nearDiv: 2700,
 
-    // меньше "ореолов" (ускоряет)
     haloOnlyIfR: 1.25,
   };
 
@@ -403,12 +388,13 @@ space.addEventListener('wheel', (e) => {
     farStars = [];
     nearStars = [];
 
+    // FAR — делаем их чуть мельче/ярче, чтобы "кажется больше" (дешево по FPS)
     for(let i=0;i<farCount;i++){
       farStars.push({
         x: Math.random()*w,
         y: Math.random()*h,
-        r: Math.random()*0.52 + 0.10,
-        a: Math.random()*0.24 + 0.04,
+        r: Math.random()*0.45 + 0.08,
+        a: Math.random()*0.28 + 0.06,
         tw: (Math.random()*1.0 + 0.25),
         ph: Math.random()*Math.PI*2,
         vx: (Math.random()-0.5)*0.010,
@@ -530,9 +516,9 @@ space.addEventListener('wheel', (e) => {
     if (!qualityDropped && fps < 45){
       qualityDropped = true;
 
-      // режем near сильнее (почти не заметно визуально)
-      nearStars = nearStars.slice(0, Math.max(700, Math.floor(nearStars.length * 0.60)));
-      farStars  = farStars.slice(0, Math.max(3500, Math.floor(farStars.length * 0.78)));
+      // режем near сильнее (far оставляем почти как есть)
+      nearStars = nearStars.slice(0, Math.max(900, Math.floor(nearStars.length * 0.65)));
+      farStars  = farStars.slice(0, Math.max(5200, Math.floor(farStars.length * 0.82)));
 
       nextShootAt = performance.now() + 1500 + Math.random()*2600;
     }
@@ -550,13 +536,10 @@ space.addEventListener('wheel', (e) => {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    // сглаживание
     pX += (mouseX - pX) * 0.055;
     pY += (mouseY - pY) * 0.055;
 
-    // ==========================
-    // FAR: мягкий параллакс (было 12)
-    // ==========================
+    // FAR (мягкий параллакс)
     farCtx.clearRect(0,0,w,h);
     const farOffX = pX * 6;
     const farOffY = pY * 6;
@@ -580,9 +563,7 @@ space.addEventListener('wheel', (e) => {
       farCtx.fill();
     }
 
-    // ==========================
-    // NEAR: мягче параллакс (было 30)
-    // ==========================
+    // NEAR (мягче параллакс)
     nearCtx.clearRect(0,0,w,h);
     const nearOffX = pX * 14;
     const nearOffY = pY * 14;
@@ -600,7 +581,6 @@ space.addEventListener('wheel', (e) => {
       const xx = ((s.x + nearOffX) % w + w) % w;
       const yy = ((s.y + nearOffY) % h + h) % h;
 
-      // ореол только для реально крупных
       if (s.r > QUALITY.haloOnlyIfR){
         nearCtx.beginPath();
         nearCtx.arc(xx, yy, s.r*3.0, 0, Math.PI*2);
@@ -651,4 +631,3 @@ space.addEventListener('wheel', (e) => {
     initAll();
   });
 })();
-
