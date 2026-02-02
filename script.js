@@ -15,7 +15,7 @@
   const peopleStars = Array.from(document.querySelectorAll('.star-wrapper'));
 
   // =========================================================
-  // 1) РАСКЛАДКА: (НЕ ТРОГАЕМ как просила) — оставлено как было
+  // 1) РАСКЛАДКА (ОСТАВЛЕНО как было)
   // =========================================================
   function layoutBranchedBrokenRidge() {
     const n = peopleStars.length;
@@ -315,7 +315,7 @@
   }
 
   // =========================================================
-  // 7) ФОН + ПАДАЮЩИЕ (ОПТИМИЗАЦИЯ)
+  // 7) ФОН + ПАДАЮЩИЕ (ОПТИМИЗАЦИЯ + МЕНЬШЕ ПАРАЛЛАКС)
   // =========================================================
   let mouseX = 0, mouseY = 0;
   let pX = 0, pY = 0;
@@ -328,17 +328,24 @@
   });
   window.addEventListener('mouseleave', () => { mouseX = 0; mouseY = 0; });
 
-  // ---- КАЧЕСТВО: главное — ограничить DPR (иначе canvas в 2–3 раза тяжелее)
+  // ---- КАЧЕСТВО
+  // maxDpr оставила как было (1.35), чтобы фон "не изменился" заметно.
+  // Урезала в основном near-слой (он тяжелее) + чуть far, чтобы легче стало, но вид почти тот же.
   const QUALITY = {
-    // было: dpr = devicePixelRatio (может быть 2-3)
-    maxDpr: 1.35,      // можно поставить 1.25 если ноут слабый
-    farMax: 14000,     // было до 26000
-    farMin: 5200,      // было 7000
-    nearMax: 3800,     // было до 6200
-    nearMin: 1200,     // было 1700
-    farDiv: 520,       // было 360 (меньше делитель -> больше звезд)
-    nearDiv: 2200,     // было 1800
-    haloOnlyIfR: 1.15, // порог "ореола" (меньше ореолов = легче)
+    maxDpr: 1.35,
+
+    // немного меньше звезд, вид почти тот же
+    farMax: 12000,
+    farMin: 4800,
+    nearMax: 2600,
+    nearMin: 900,
+
+    // больше делитель = меньше звезд
+    farDiv: 600,
+    nearDiv: 3000,
+
+    // меньше "ореолов" (ускоряет)
+    haloOnlyIfR: 1.25,
   };
 
   function setupFixedCanvas(canvas, ctx){
@@ -372,10 +379,10 @@
         x: Math.random()*w,
         y: Math.random()*h,
         r: Math.random()*0.52 + 0.10,
-        a: Math.random()*0.24 + 0.04,     // чуть меньше = меньше заметно, но легче
+        a: Math.random()*0.24 + 0.04,
         tw: (Math.random()*1.0 + 0.25),
         ph: Math.random()*Math.PI*2,
-        vx: (Math.random()-0.5)*0.010,    // чуть меньше движения = легче глазу и CPU
+        vx: (Math.random()-0.5)*0.010,
         vy: (Math.random()-0.5)*0.010
       });
     }
@@ -477,29 +484,27 @@
     }
   }
 
-  // ---- Авто-понижение качества, если FPS низкий (без дерганья)
+  // ---- Авто-понижение качества, если FPS низкий (мягко)
   let fpsAcc = 0, fpsCount = 0;
   let qualityDropped = false;
+
   function maybeDropQuality(dt){
     fpsAcc += dt;
     fpsCount += 1;
 
-    if (fpsAcc < 2.6) return; // измеряем ~2.6 сек
+    if (fpsAcc < 2.6) return;
     const fps = fpsCount / fpsAcc;
 
     fpsAcc = 0;
     fpsCount = 0;
 
-    // если ноут слабый — режем звезды один раз
     if (!qualityDropped && fps < 45){
       qualityDropped = true;
 
-      // уменьшаем массивы на ~35%
-      const cut = (arr) => arr.slice(0, Math.max(400, Math.floor(arr.length * 0.65)));
-      farStars = cut(farStars);
-      nearStars = cut(nearStars);
+      // режем near сильнее (почти не заметно визуально)
+      nearStars = nearStars.slice(0, Math.max(700, Math.floor(nearStars.length * 0.60)));
+      farStars  = farStars.slice(0, Math.max(3500, Math.floor(farStars.length * 0.78)));
 
-      // падающие чуть реже
       nextShootAt = performance.now() + 1500 + Math.random()*2600;
     }
   }
@@ -516,13 +521,16 @@
     const w = window.innerWidth;
     const h = window.innerHeight;
 
+    // сглаживание
     pX += (mouseX - pX) * 0.055;
     pY += (mouseY - pY) * 0.055;
 
-    // FAR
+    // ==========================
+    // FAR: мягкий параллакс (было 12)
+    // ==========================
     farCtx.clearRect(0,0,w,h);
-    const farOffX = pX * 12;
-    const farOffY = pY * 12;
+    const farOffX = pX * 6;
+    const farOffY = pY * 6;
 
     for (const s of farStars){
       s.x += s.vx; s.y += s.vy;
@@ -543,10 +551,12 @@
       farCtx.fill();
     }
 
-    // NEAR
+    // ==========================
+    // NEAR: мягче параллакс (было 30)
+    // ==========================
     nearCtx.clearRect(0,0,w,h);
-    const nearOffX = pX * 30;
-    const nearOffY = pY * 30;
+    const nearOffX = pX * 14;
+    const nearOffY = pY * 14;
 
     for (const s of nearStars){
       s.x += s.vx; s.y += s.vy;
