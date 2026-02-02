@@ -215,17 +215,46 @@
     requestDrawLines();
   }
 
-  space.addEventListener('wheel', (e) => {
-    if (e.ctrlKey) return;
-    e.preventDefault();
+ // ===== ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ — ОПТИМИЗИРОВАНО (через rAF) =====
+let wheelAccX = 0;
+let wheelAccY = 0;
+let wheelRaf = 0;
 
-    const speed = 1.1;
-    panX -= (e.deltaX || 0) * speed;
-    panY -= (e.deltaY || 0) * speed;
+function applyWheelPan() {
+  wheelRaf = 0;
 
-    clampPan();
-    applyPan();
-  }, { passive:false });
+  const speed = 1.1;
+
+  // применяем накопленное один раз за кадр
+  panX -= wheelAccX * speed;
+  panY -= wheelAccY * speed;
+
+  wheelAccX = 0;
+  wheelAccY = 0;
+
+  clampPan();
+  applyPan();
+}
+
+space.addEventListener('wheel', (e) => {
+  // CTRL+колесо — зум браузера, его не ломаем
+  if (e.ctrlKey) return;
+
+  e.preventDefault();
+
+  // на тачпаде дельты могут быть очень частыми/мелкими:
+  // копим и применяем один раз в requestAnimationFrame
+  wheelAccX += (e.deltaX || 0);
+  wheelAccY += (e.deltaY || 0);
+
+  // защита от "скачков" (редко, но бывает)
+  wheelAccX = Math.max(-180, Math.min(180, wheelAccX));
+  wheelAccY = Math.max(-180, Math.min(180, wheelAccY));
+
+  if (!wheelRaf) {
+    wheelRaf = requestAnimationFrame(applyWheelPan);
+  }
+}, { passive: false });
 
   // =========================================================
   // 4) ПОЗИЦИИ (как было)
@@ -622,3 +651,4 @@
     initAll();
   });
 })();
+
