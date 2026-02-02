@@ -188,7 +188,7 @@
   let connections = buildConnectionsStable(peopleStars.length);
 
   // =========================================================
-  // 3) ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ — rAF (как у тебя было без лагов)
+  // 3) ПАНОРАМИРОВАНИЕ КОЛЁСИКОМ — rAF (без лагов)
   // =========================================================
   let panX = 0;
   let panY = 0;
@@ -334,27 +334,24 @@
   }
 
   // =========================================================
-  // 7) ФОН + ПАДАЮЩИЕ (БЕЗ движения от курсора + больше звёзд)
+  // 7) ФОН + ПАДАЮЩИЕ
+  //    ⭐️ звёзды НЕ плывут (vx/vy = 0)
+  //    ⭐️ звёзд ещё больше
   // =========================================================
-
-  // КАЧЕСТВО
-  // Важно: увеличиваем в основном FAR (дешёвые точки).
-  // NEAR чуть-чуть, чтобы не убить FPS.
   const QUALITY = {
     maxDpr: 1.35,
 
-    // FAR — много звёзд
-    farMax: 24000,
-    farMin: 9500,
-    farDiv: 290,
+    // FAR — много точек (самое дешёвое)
+    farMax: 42000,
+    farMin: 16000,
+    farDiv: 190,
 
-    // NEAR — осторожно
-    nearMax: 3200,
-    nearMin: 1200,
-    nearDiv: 2400,
+    // NEAR — осторожно, но тоже чуть больше
+    nearMax: 5200,
+    nearMin: 1800,
+    nearDiv: 1850,
 
-    // меньше ореолов = быстрее
-    haloOnlyIfR: 1.28,
+    haloOnlyIfR: 1.30, // ореолы только у очень крупных
   };
 
   function setupFixedCanvas(canvas, ctx){
@@ -383,30 +380,31 @@
     farStars = [];
     nearStars = [];
 
-    // FAR — мелкие и чуть ярче (кажется "ещё больше", но дешево по FPS)
+    // FAR — мелкие, яркие (кажется "очень много" и почти не грузит)
     for(let i=0;i<farCount;i++){
       farStars.push({
         x: Math.random()*w,
         y: Math.random()*h,
-        r: Math.random()*0.45 + 0.07,
-        a: Math.random()*0.30 + 0.06,
+        r: Math.random()*0.45 + 0.06,
+        a: Math.random()*0.32 + 0.06,
         tw: (Math.random()*1.0 + 0.25),
         ph: Math.random()*Math.PI*2,
-        vx: (Math.random()-0.5)*0.010,
-        vy: (Math.random()-0.5)*0.010
+        vx: 0,
+        vy: 0
       });
     }
 
+    // NEAR — чуть крупнее, тоже без движения
     for(let i=0;i<nearCount;i++){
       nearStars.push({
         x: Math.random()*w,
         y: Math.random()*h,
-        r: Math.random()*1.15 + 0.26,
+        r: Math.random()*1.10 + 0.25,
         a: Math.random()*0.40 + 0.08,
         tw: (Math.random()*1.35 + 0.55),
         ph: Math.random()*Math.PI*2,
-        vx: (Math.random()-0.5)*0.028,
-        vy: (Math.random()-0.5)*0.028
+        vx: 0,
+        vy: 0
       });
     }
 
@@ -414,9 +412,10 @@
     nextShootAt = performance.now() + 1100 + Math.random()*2100;
   }
 
+  // падающие звёзды (оставляем, это красиво)
   const shootings = [];
   let nextShootAt = 0;
-  const MAX_SHOOTINGS = 6;
+  const MAX_SHOOTINGS = 7;
 
   function spawnShootingStar(w, h){
     const fromTop = Math.random() < 0.65;
@@ -441,8 +440,8 @@
     if (now < nextShootAt) return;
 
     let burst = 1;
-    if (Math.random() < 0.50) burst++;
-    if (Math.random() < 0.20) burst++;
+    if (Math.random() < 0.55) burst++;
+    if (Math.random() < 0.25) burst++;
 
     for (let i = 0; i < burst; i++){
       if (shootings.length >= MAX_SHOOTINGS) break;
@@ -452,7 +451,7 @@
       shootings.push(s);
     }
 
-    nextShootAt = now + 1050 + Math.random()*2300;
+    nextShootAt = now + 950 + Math.random()*2200;
   }
 
   function drawShootings(dt, w, h){
@@ -494,7 +493,7 @@
     }
   }
 
-  // Авто-урезание, если вдруг ноуту тяжело (без дерганья)
+  // авто-урезание, если вдруг тяжело
   let fpsAcc = 0, fpsCount = 0;
   let qualityDropped = false;
 
@@ -511,11 +510,11 @@
     if (!qualityDropped && fps < 45){
       qualityDropped = true;
 
-      // режем near сильнее, far чуть-чуть
-      nearStars = nearStars.slice(0, Math.max(900, Math.floor(nearStars.length * 0.65)));
-      farStars  = farStars.slice(0, Math.max(7000, Math.floor(farStars.length * 0.80)));
+      // режем near сильно, far умеренно (чтобы всё равно было много звёзд)
+      nearStars = nearStars.slice(0, Math.max(1200, Math.floor(nearStars.length * 0.60)));
+      farStars  = farStars.slice(0, Math.max(11000, Math.floor(farStars.length * 0.75)));
 
-      nextShootAt = performance.now() + 1500 + Math.random()*2600;
+      nextShootAt = performance.now() + 1400 + Math.random()*2600;
     }
   }
 
@@ -531,16 +530,9 @@
     const w = window.innerWidth;
     const h = window.innerHeight;
 
-    // ===== FAR (без параллакса от курсора: оффсеты = 0) =====
+    // FAR: без движения (vx/vy=0), только мерцание
     farCtx.clearRect(0,0,w,h);
-
     for (const s of farStars){
-      s.x += s.vx; s.y += s.vy;
-      if (s.x < -12) s.x = w+12;
-      if (s.x > w+12) s.x = -12;
-      if (s.y < -12) s.y = h+12;
-      if (s.y > h+12) s.y = -12;
-
       const twinkle = 0.60 + 0.40 * Math.sin(now/1000 * s.tw + s.ph);
       const a = s.a * twinkle;
 
@@ -550,23 +542,16 @@
       farCtx.fill();
     }
 
-    // ===== NEAR (без параллакса от курсора: оффсеты = 0) =====
+    // NEAR: без движения, только мерцание + редкие ореолы
     nearCtx.clearRect(0,0,w,h);
-
     for (const s of nearStars){
-      s.x += s.vx; s.y += s.vy;
-      if (s.x < -14) s.x = w+14;
-      if (s.x > w+14) s.x = -14;
-      if (s.y < -14) s.y = h+14;
-      if (s.y > h+14) s.y = -14;
-
       const twinkle = 0.56 + 0.44 * Math.sin(now/1000 * s.tw + s.ph);
       const a = s.a * twinkle;
 
       if (s.r > QUALITY.haloOnlyIfR){
         nearCtx.beginPath();
         nearCtx.arc(s.x, s.y, s.r*3.0, 0, Math.PI*2);
-        nearCtx.fillStyle = `rgba(255,255,255,${a*0.07})`;
+        nearCtx.fillStyle = `rgba(255,255,255,${a*0.065})`;
         nearCtx.fill();
       }
 
@@ -576,9 +561,11 @@
       nearCtx.fill();
     }
 
+    // падающие звёзды
     maybeSpawnShooting(now, w, h);
     drawShootings(dt, w, h);
 
+    // лёгкая пульсация линий (как было)
     linePulse += dt;
     svg.style.opacity = String(0.60 + 0.08 * Math.sin(linePulse * 0.9));
 
