@@ -32,6 +32,13 @@ html, body{
   height: 2200px;
 }
 
+@media (max-width: 768px){
+  #world{
+    width: 1800px;
+    height: 1400px;
+  }
+}
+
 /* =========================
    CANVAS BACKGROUND
    ✅ ВАЖНО: фиксируем ТОЛЬКО фоновые canvas
@@ -430,4 +437,35 @@ html, body{
 #tooltip-layer .tooltip.is-show{
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+@media (max-width: 768px){
+  .header{
+    top: 24px;
+  }
+
+  .header h1{
+    font-size: 28px;
+    letter-spacing: 0.12em;
+  }
+
+  .header p{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px){
+  .tooltip{
+    max-width: calc(100vw - 32px);
+    font-size: 14px;
+    padding: 12px 16px;
+  }
+
+  .tooltip .tooltip-text{
+    font-size: 14px;
+  }
+}
+
+html, body{
+  touch-action: none;
 }

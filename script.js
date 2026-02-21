@@ -27,10 +27,34 @@
     const Y_MIN = 20, Y_MAX = 88;
 
     // больше звёзд на хребте, чтобы созвездие было компактнее и связнее
-    const trunkEnd = Math.min(n, Math.max(10, Math.round(n * 0.68)));
+    const trunkEnd = Math.min(n, Math.max(9, Math.round(n * 0.55)));
     const rest = n - trunkEnd;
 
     const pos = new Array(n);
+    // === helpers: пересечения отрезков ===
+    const segIntersects = (ax, ay, bx, by, cx, cy, dx, dy) => {
+      const orient = (x1,y1,x2,y2,x3,y3) => (x2-x1)*(y3-y1) - (y2-y1)*(x3-x1);
+      const onSeg = (x1,y1,x2,y2,x,y) =>
+        Math.min(x1,x2) <= x && x <= Math.max(x1,x2) &&
+        Math.min(y1,y2) <= y && y <= Math.max(y1,y2);
+
+      const o1 = orient(ax,ay,bx,by,cx,cy);
+      const o2 = orient(ax,ay,bx,by,dx,dy);
+      const o3 = orient(cx,cy,dx,dy,ax,ay);
+      const o4 = orient(cx,cy,dx,dy,bx,by);
+
+      if ((o1 > 0) !== (o2 > 0) && (o3 > 0) !== (o4 > 0)) return true;
+
+      if (o1 === 0 && onSeg(ax,ay,bx,by,cx,cy)) return true;
+      if (o2 === 0 && onSeg(ax,ay,bx,by,dx,dy)) return true;
+      if (o3 === 0 && onSeg(cx,cy,dx,dy,ax,ay)) return true;
+      if (o4 === 0 && onSeg(cx,cy,dx,dy,bx,by)) return true;
+
+      return false;
+    };
+
+    // все сегменты, с которыми нельзя пересекаться (хребет + принятые ветки)
+    const segments = [];
 
     // точки переломов
     const kink1 = Math.floor(trunkEnd * 0.28);
@@ -60,9 +84,14 @@
       y = Math.max(Y_MIN, Math.min(Y_MAX, y));
       pos[i] = { x, y };
     }
+    // добавляем сегменты хребта как "запретные" для пересечения
+    for (let i = 0; i < trunkEnd - 1; i++) {
+      const A = pos[i], B = pos[i + 1];
+      segments.push([A.x, A.y, B.x, B.y]);
+    }
 
     // --- Ветки ---
-    const branchCount = Math.min(6, Math.max(4, Math.round(rest / 3)));
+    const branchCount = Math.min(8, Math.max(6, Math.round(rest / 2.8)));
     const anchors = [];
     for (let b = 0; b < branchCount; b++) {
       const at = Math.floor(trunkEnd * (0.18 + b * (0.68 / Math.max(1, branchCount - 1))));
@@ -109,32 +138,77 @@
       py *= side;
 
       // длина ветки (не слишком далеко от хребта)
-      const lenBase = 10 + Math.random() * 4 + Math.min(6, len) * 1.6;
-      // небольшой «вынос» вдоль хребта, чтобы угол был живее, но всё ещё близок к 90°
-      const along = 0.12 + Math.random() * 0.08;
+const lenBase = 8 + Math.random() * 3 + Math.min(6, len) * 1.1;
+// небольшой «вынос» вдоль хребта, чтобы угол был живее, но всё ещё близок к 90°
+      const along = 0.02 + Math.random() * 0.02;
 
-      for (let k = 0; k < len && idx < n; k++) {
-        const t = (k + 1) / (len + 1);
+      // --- строим ветку пробно, проверяем пересечения, при необходимости переворачиваем/укорачиваем ---
+      const tryBuild = (flip, shrink) => {
+        const pts = [];
+        const segs = [];
 
-        // равномернее разводим 2+ звезды на ветке, чтобы не слипались
-        const tt = (k + 1) / (len + 0.7);
+        const fpx = flip ? -px : px;
+        const fpy = flip ? -py : py;
+        const lBase = lenBase * shrink;
 
-        let x = A.x + px * (tt * lenBase) + tx * (tt * lenBase * along);
-        let y = A.y + py * (tt * lenBase) + ty * (tt * lenBase * along);
+        let prevX = A.x, prevY = A.y;
 
-        // лёгкая дуга (очень мягко)
-        x += Math.sin(tt * Math.PI) * 0.7 * px;
-        y += Math.sin(tt * Math.PI) * 0.7 * py;
+        for (let k = 0; k < len && (trunkEnd + pts.length) < n; k++) {
+          const tt = (k + 1) / (len + 1.2);
 
-        // микро-хаос
-        x += (Math.random() - 0.5) * 0.9;
-        y += (Math.random() - 0.5) * 0.9;
+          let x = A.x + fpx * (tt * lBase) + tx * (tt * lBase * along);
+          let y = A.y + fpy * (tt * lBase) + ty * (tt * lBase * along);
 
-        x = Math.max(X_MIN, Math.min(X_MAX, x));
-        y = Math.max(Y_MIN, Math.min(Y_MAX, y));
+          x += Math.sin(tt * Math.PI) * 0.7 * fpx;
+          y += Math.sin(tt * Math.PI) * 0.7 * fpy;
 
-        pos[idx++] = { x, y };
+          x += (Math.random() - 0.5) * 0.35;
+          y += (Math.random() - 0.5) * 0.35;
+
+          x = Math.max(X_MIN, Math.min(X_MAX, x));
+          y = Math.max(Y_MIN, Math.min(Y_MAX, y));
+
+          // сегмент от предыдущей точки (или якоря) к текущей
+          const sx1 = prevX, sy1 = prevY, sx2 = x, sy2 = y;
+
+          // проверяем пересечения с уже принятыми сегментами
+          for (const [cx,cy,dx,dy] of segments) {
+            // пропускаем сегменты хребта рядом с якорем (иначе ложные срабатывания в точке выхода)
+            // (приблизительно: не проверяем пересечение, если оно рядом с A)
+            const nearA =
+              (Math.hypot(cx - A.x, cy - A.y) < 1.0) ||
+              (Math.hypot(dx - A.x, dy - A.y) < 1.0);
+            if (nearA) continue;
+
+            if (segIntersects(sx1,sy1,sx2,sy2,cx,cy,dx,dy)) return null;
+          }
+
+          segs.push([sx1,sy1,sx2,sy2]);
+          pts.push({ x, y });
+
+          prevX = x; prevY = y;
+        }
+
+        return { pts, segs };
+      };
+
+      // пробуем 4 сценария: обычная сторона / flipped, и чуть короче
+      let built =
+        tryBuild(false, 1.0) ||
+        tryBuild(true,  1.0) ||
+        tryBuild(false, 0.82) ||
+        tryBuild(true,  0.82);
+
+      // если вообще не получилось — просто ставим как раньше (крайний случай)
+      if (!built) built = tryBuild(false, 0.70) || { pts: [], segs: [] };
+
+      // записываем принятую ветку и добавляем её сегменты в "запретные"
+      for (const p of built.pts) {
+        if (idx >= n) break;
+        pos[idx++] = p;
       }
+      for (const s of built.segs) segments.push(s);
+
     }
 
     // если осталось — ближе к центру
@@ -146,7 +220,7 @@
     }
 
     // “стяжка” сильнее => расстояния меньше
-    const PULL = 0.78; // было ~0.86; меньше => кучнее
+    const PULL = 1.245; // было ~0.86; меньше => кучнее
     for (let i = 0; i < n; i++) {
       const x = 50 + (pos[i].x - 50) * PULL;
       const y = 50 + (pos[i].y - 50) * PULL;
@@ -162,12 +236,12 @@
     const con = [];
     if (n <= 1) return con;
 
-    const trunkEnd = Math.min(n, Math.max(10, Math.round(n * 0.68)));
+    const trunkEnd = Math.min(n, Math.max(9, Math.round(n * 0.55)));
     const rest = n - trunkEnd;
 
     for (let i = 0; i < trunkEnd - 1; i++) con.push([i, i + 1]);
 
-    const branchCount = Math.min(6, Math.max(4, Math.round(rest / 3)));
+    const branchCount = Math.min(8, Math.max(6, Math.round(rest / 2.8)));
     const anchors = [];
     for (let b = 0; b < branchCount; b++) {
       const at = Math.floor(trunkEnd * (0.18 + b * (0.68 / Math.max(1, branchCount - 1))));
@@ -434,8 +508,15 @@ const centers = peopleStars.map(star => {
 
     const area = w * h;
 
-    const farCount  = Math.max(7000, Math.min(26000, Math.floor(area / 360)));
-    const nearCount = Math.max(1700, Math.min(6200,  Math.floor(area / 1800)));
+    const isMobile = window.innerWidth < 768;
+
+const farCount  = isMobile
+  ? Math.max(2500, Math.floor(area / 700))
+  : Math.max(7000, Math.min(26000, Math.floor(area / 360)));
+
+const nearCount = isMobile
+  ? Math.max(800, Math.floor(area / 3500))
+  : Math.max(1700, Math.min(6200,  Math.floor(area / 1800)));
 
     farStars = [];
     nearStars = [];

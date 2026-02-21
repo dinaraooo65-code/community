@@ -13,139 +13,176 @@
 </head>
 <body>
 
-  <!-- ФОН -->
+  
   <canvas id="starfieldFar"></canvas>
   <canvas id="starfieldNear"></canvas>
   <canvas id="shooting"></canvas>
 
   <header class="header">
     <h1>СЕМЬЯ</h1>
-    <p>где каждый человек — по-своему звезда</p>
+    <p>Где каждый человек — по-своему звезда</p>
   </header>
 
-  <!-- Вьюпорт -->
+  
   <main class="space" id="space" aria-label="Карта созвездия (двигай колёсиком)">
-    <!-- Мир (двигается) -->
+ 
     <div class="world" id="world">
       <svg class="constellation" id="constellation"></svg>
 
-      <!-- Твои 8 -->
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">Lett</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Ну, типа я</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">glorygod</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">В каждом эдите прослеживается индивидуальный стиль, который легко узнаётся среди других работ — каждое видео отличает творческая подача и качественная работа с деталями.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">f!l</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Любовь!!!</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">al1sva</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Для тех, кто ценит продуманный видеомонтаж. Автор умеет превращать привычные сцены в нечто совершенно новое и завораживающее.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">melleri.xd</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Она появлялась между моментами</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">melleri.xd</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Здесь собираются мысли, мемы, личные истории и немного души. Обсуждения, размышления, а иногда — просто молчание между строк.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">Menlisha</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Её траектория была непредсказуемой</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">siļent</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Пространство, где важны тишина, внутренний рост и любовь. Двигаемся шаг за шагом, делимся мыслями и вдохновением.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">katana</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Чистая грань</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">katana</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Место для размышлений о жизни, взрослении и маленьких шагах вперёд. Не бойся расти медленно, бойся стоять на месте. Здесь всегда будет комфортно и интересно.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">siļent</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">Тихая точка опоры</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Menlisha</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Тёплое пространство о чувствах, отношениях и принятии себя. Здесь напоминают: любить никогда не поздно. Вдохновляющие мысли, искренние истории, немного нежности для каждого подписчика.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">clam6iry</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">У неё свой маршрут</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">clam6iry</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Лучшие эдиты: креативный подход, отличная музыка и сильное чувство стиля делают каждый ролик особенным и запоминающимся. Создательница Emctlons Squad.</div></div></div>
 
-      <div class="star-wrapper">
-        <div class="person-star"><span></span></div>
-        <div class="star-name">c4het</div>
-        <div class="tooltip">
-          <canvas class="tooltip-bg"></canvas>
-          <div class="tooltip-tint"></div>
-          <div class="tooltip-text">За границей кадра</div>
-        </div>
-      </div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">c4het</div><div class="tooltip"><canvas class="tooltip-bg"></canvas>
+<div class="tooltip-tint"></div><div class="tooltip-text">Эдиты высокого уровня — каждая работа радует глаз, вдохновляет и заряжает отличным настроением. Создательница Emctlons Squad.</div></div></div>
 
-      <!-- +12 новых -->
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">AgelSan</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Тихая искра</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">onowka</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Дальняя точка</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Auretel'</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Бьётся ровно</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">terzanie</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Отзывается</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Kens1ss</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Держит курс</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">азурин</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Свет без шума</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">sozidat'</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">тут очень крутое описание для проверки размеров рамки и блюра задних элементов &lt;3</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">raven</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Скрытый свет</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">velsi</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Вспыхивает внезапно</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">mistyx</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Выше линии</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">муся че</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Полюс</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Sushka</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Появляется вовремя</div></div></div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">AgelSan</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Для тех, кто ценит честность и свободу выражения. Без пропаганды, с откровенными темами. В артах заметна уверенная рука и чёткое художественное видение. Детали не перегружают, а усиливают общий образ.</div></div></div>
 
-      <!-- +20 новых (добавлено сейчас) -->
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">murarfa</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Держит тепло внутри</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">glorygod</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Смеётся первой</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">al1sva</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Собирает всех ближе</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">xoxm1</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Звучит тихо, но точно</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">simply tati</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Умеет быть рядом</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">affection</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Светит без просьб</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ase1vm</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Видно издалека</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">saint</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Меняется красиво</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">tishaaa</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Берёт высоту</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">La suerte del sol</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Луна в характере</div></div></div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">onowka</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Канал с ламповой атмосферой, общением и приколами. Здесь всё просто: мемы и мысли автора.</div></div></div>
 
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">рассадник чудовищ</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Умеет закрывать шум</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ttyx</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Пролетает — и остаётся</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">руина спиритов</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Мягкая глубина</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">бакин хелп</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Светит по-домашнему</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ririru</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Север внутри</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">loyal1ty</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Дышит космосом</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Coriandrum's</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Корона без пафоса</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Team Spirit — больше, чем команда</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Охраняет своих</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">no_oreazy</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Возвращает свет</div></div></div>
-      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Midnight Minako</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Слепит чуть-чуть</div></div></div>
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Auretel'</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Канал для вдохновения и креатива: дизайн, авторские работы, полезные ресурсы. </div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">terzanie</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Отражение личных мыслей, боли, сомнений и поиска себя.  Архив исповедей и переживаний.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Kens1ss</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Авторские эдиты и арты, которые впечатляют своим креативом и качеством. Понравится всем ценителям KENSi.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">азурин</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Авторские видео, эдиты и монтаж. Здесь собраны лучшие моменты, клипы и креативные работы.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">xoxm1</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Рисунки странной хохмы, кажется, тут немного радиации и абсурда. Уникальные иллюстрации, ирония и авторский взгляд на мир.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">raven</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Потрясающие арты — Raven обладает своим неповторимым стилем и всегда удивляет свежими идеями.  Создательница HEAVEN.com.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">murarfa</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты смотрятся стильно и свежо: они наполнены эмоциями, отличным подбором кадров и музыкального сопровождения. Лучший админа чата Nick's Area | NXREA.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">mistyxq</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Это уникальный микс авторских эдитов, артов и ироничных shitpost'ов.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">stars</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Для тех, кто любит авторские тексты и фанфики, ценит спокойную и душевную атмосферу.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Sushka</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты выделяются продуманностью и креативом. Каждый ролик — как отдельная история, а монтаж всегда на высоте. Для тех, кто любит Олега baz.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">velsi</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Потрясающие эдиты — каждый ролик выглядит динамично, стильно и всегда радует интересными решениями в монтаже.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">f!l</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эмоциональные тексты, реакции на матчи, мысли об игроках и атмосфера, связанная с жизнью команды, контент про чувства и поддержку. Это уют, в котором Фил делится короткими мыслями и настроениями о жизни, любви и повседневных ощущениях. Он наполнен лёгкими, тёплыми фразами и приглашает остановиться, вдохнуть и подумать о простых, но важных вещах — о счастье, чувствах и переживаниях. Здесь слова работают на настроение, а между строк чувствуется глубина и внимание к переживаниям.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">lett</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Атмосферные и эмоциональные арты. МММ… хочется пересматривать каждый. Собирает всех ближе</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">sozidat'</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Это не просто канал с мыслями — это небольшое литературное пространство, где чувства и истории передаются через знакомые образы и тонкие детали. Тексты создают атмосферу, в которой важно не столько событие, сколько внутреннее состояние. Каждая публикация ощущается как зафиксированный момент — искренний, живой, наполненный эмоцией.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">mzxae</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Крутые эдиты с Илюхой m0NESY.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">affection</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Зарисовки цепляют своей искренностью и необычными сюжетными ходами. Даже самая короткая история способна затронуть и заставить задуматься.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ase1vm</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Место, где живут авторские эдиты с уникальным вайбом.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">saint</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Территория слов: мысли, байки, признания и абсурд, которые появляются спонтанно и без цензуры. Чем меньше времени остаётся — тем интенсивнее болтовня. Здесь не ищут смысл, здесь его создают на ходу.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">tishaaa</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Уютный уголок мыслей, наблюдений и личных моментов. Здесь можно отвлечься от шума, поймать свой вайб и просто поболтать без темы и шаблонов.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">мишва</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Место артов с неповторимым вайбом.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">шу</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Арты создают сильные образы и атмосферу. Эдиты удерживают внимание за счёт грамотной структуры и выразительных монтажных акцентов.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ttyx</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Уютный канал с эдитами и зарисовками, живое впечатление о команде.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">руина спиритов</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Здесь эдиты — это не просто монтаж, а архитектура эмоций. Ритм строится так, будто собирает пульс из кадров, превращая секунды в переживание.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">бакин хелп</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Хелпер-канал с нарезками, фотографиями и полезным контентом.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ririru</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Арты вдохновляют на творчество и заряжают позитивом. Он умеет не просто рисовать, а передавать через свои работы целые истории и чувства.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">loyal1ty</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">В эдитах время перестаёт быть линейным: оно сжимается, ускоряется, замирает. Монтаж становится способом управлять ощущением, а не просто последовательностью кадров.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">yogurt</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Каждый эдит — это самостоятельная работа с собственной атмосферой и темпом.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">donk_cs2</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Контент по Team Spirit со всех уголоков интернета.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">at 11pm</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Истории о любви, вдохновлённые реальными людьми и написанные с душой.</div></div></div>
+
+      <div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">no_oreazy</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Каждая работа — как короткое замыкание между картинкой и ощущением. В эдитах визуал не иллюстрирует эмоцию — он её создаёт. Иногда радует своими артами.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">vverxxii</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Где каждый пост выделяется своим стилем, а эдиты остаются в памяти.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ksum1zz</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Он работает с изображением на всех этапах: от выбора до финального штриха. Фото в его руках обретают характер, а монтаж объединяет их в единую эмоциональную линию.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">babymur</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Место c эдитами, где всегда можно отвлечься, улыбнуться и почувствовать себя среди своих.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">werss</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты отличаются характером. Это не шаблонный монтаж, а самостоятельный визуальный язык с узнаваемым почерком.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">sharm</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эти эдиты — это баланс техники и интуиции. Продуманная структура сочетается с живой эмоциональной подачей.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">кошка</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Микс милого, весёлого и жизненного контента: мемы, коты, личная подача и прекрасные эдиты.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">kiori</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Здесь нарезка всегда точная и динамичная: он умеет выделить главное и сохранить напряжение момента. Эдиты усиливают это ощущение, превращая фрагменты в цельную историю.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">леки</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Канал для тех, кто любит задумываться о нестандартных вопросах.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">yumee</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Уютный и ламповый формат эдитов.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">una_endo</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Создание историй, которые выходят за рамки канона, сохраняя характеры и добавляя им новое звучание. В его текстах чувствуется продуманность и искренность.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">dinsa1z</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Немного загадочное пространство для тех, кто “в теме” и готов прославлять госпожу динсайз за её арты, эдиты и зарисовки.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">La suerte del sol</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Сочетание технического мастерства в эдитах и фантазий в создании ау. Каждая работа вызывает эмоции и заставляет по-новому взглянуть на знакомых персонажей.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Coriandrum's</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Это не просто фан-контент. Это пространство, где киберспорт становится литературой, а игроки — персонажами большой, чувственной истории.   это пространство для зарисовок, заметок, мыслей и мнений. Здесь переплетаются радость и грусть, вдохновение и рефлексия.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">ketchhk</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты создают сильное визуальное впечатление благодаря вниманию к деталям и аккуратной структуре.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">totalnyifeed</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Здесь объединяют атмосферу, стиль и понимание аудитории. Это контент, который действительно откликается поклонникам.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">seilariMich</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Фанфики, зарисовки, эдиты и арты объединены общей атмосферой и вниманием к деталям. Каждое направление дополняет другое, создавая полноценное творческое пространство.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Monesy and Donk</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты, фото и нарезки для истинных ценителей.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">musyacha</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Отличный микс из ярких эдитов и выразительных зарисовок.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">рассадник чудовищ</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Откровенный и неординарный фанфикшен, авторские зарисовки, фан-сервисные арты, а также обсуждения и подборки самого интересного фан-контента о киберспортсменах.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">monesizx</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Эдиты выстраивают драматургию вокруг игры m0NESY — от нарастающего напряжения до мощной развязки.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">fffhuah3</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Уютный канал для фанатских видео, хэдканонов, эссе и ироничных заметок.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">sanswill</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Уголок для творчества, нарезок и общения.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">kicha me!</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Ддиты и заривки, которые вжохновляют и не оставляют равнодушным.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">D0NIL</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Тёплый, неформальный канал с юмором, живыми диалогами и эдитами.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Team Spirit FAN</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Фан-контент запоминается атмосферой и характером, превращая интерес к фандому в полноценное творческое высказывание.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">миродани в соавторских мыслях</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Фанфики и авторские заметки о Мироданях и других киберспортсменах.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">притон деаууар</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Каждый эдит — это отдельный мир, в который хочется возвращаться.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">киберспортик и приколы</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Без шума</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Domorox</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Цепляющие арты и зарисовки, которые всегда хочется перечитать.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">донкизяна</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Крутой эдит с Даней и Мирославом.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Midnight Minako</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Прекрасные арты по TS, в них чувствуется душа, уникальный стиль и огромная работа. Создательница невероятно теплого дискорда, где рады всем.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">wiw_what</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Нарезки, фото любимых команд и анонсы матчей, чтобы всегда быть вкурсе.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">рывар</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Для тех, кто любит арты, рисунки, фотографии и тёплое комьюнити.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">linnyanekek</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">После её эдитов хочется творить самому. Вот что значит настоящая магия.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">alexxap</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Она слышит музыку кожей — переходы всегда вовремя, вайб безупречный.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Неарина!</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">У неё свой неповторимый стиль. Эти эдиты узнаваемы среди тысяч других — а это дорогого стоит.</div></div></div>
+
+<div class="star-wrapper"><div class="person-star"><span></span></div><div class="star-name">Team Spirit — больше, чем команда</div><div class="tooltip"><canvas class="tooltip-bg"></canvas><div class="tooltip-tint"></div><div class="tooltip-text">Ламповое обсуждение матчей, свежие новости, мемы, фан-контент и честные эмоции после побед — и не только побед.</div></div></div>
 
     </div>
   </main>
